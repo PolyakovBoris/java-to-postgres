@@ -1,0 +1,28 @@
+package org.example;
+
+import java.sql.DriverManager;
+import java.sql.*;
+import java.util.logging.*;
+public class JDBCtest {
+    public Connection getConnection() {
+        Connection connection = null;
+        //URL к базе состоит из протокола:подпротокола://[хоста]:[порта_СУБД]/[БД] и других_сведений
+        String url = "jdbc:postgresql://192.168.1.5:5432/habrdb";
+        //Имя пользователя БД
+        String name = "habrpguser";
+        //Пароль
+        String password = "pgpwd4habr";
+        try {
+            //Загружаем драйвер
+            Class.forName("org.postgresql.Driver");
+            System.out.println("Драйвер подключен");
+            //Создаём соединение
+            connection = DriverManager.getConnection(url, name, password);
+            System.out.println("Соединение установлено");
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(JDBCtest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return connection;
+    }
+}
