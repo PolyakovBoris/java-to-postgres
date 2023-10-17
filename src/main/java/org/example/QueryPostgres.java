@@ -5,7 +5,7 @@ public class QueryPostgres {
 
     // выборка данных SELECT принимает STRING login возвращает объект user
     public User getSelect(String login) {
-        JDBCtest newConnection = new JDBCtest();
+        JDBCConnection newConnection = new JDBCConnection();
         ResultSet result1 = null;
         Statement statement = null;
         try {
@@ -25,17 +25,16 @@ public class QueryPostgres {
                 user = new User(result1.getString("login"),result1.getString("password"),
                         result1.getString("date"));
             }
-
+            newConnection.getConnection().close();
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     // добавление данных INSERT принимает объект user
     public int makeInsert(User user) throws SQLException {
-        JDBCtest newConnection = new JDBCtest();
+        JDBCConnection newConnection = new JDBCConnection();
 
         try (PreparedStatement preparedStatement = newConnection.getConnection().prepareStatement(
                 "INSERT INTO newtable1 values(?, ?, ?)")){
@@ -43,7 +42,7 @@ public class QueryPostgres {
             preparedStatement.setString(2, user.password);
             preparedStatement.setString(3, user.date);
             preparedStatement.executeUpdate();
+            return 1;
         }
-        return 1;
     }
 }

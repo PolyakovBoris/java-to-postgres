@@ -3,7 +3,7 @@ package org.example;
 import java.sql.DriverManager;
 import java.sql.*;
 import java.util.logging.*;
-public class JDBCtest {
+public class JDBCConnection {
     public Connection getConnection() {
         Connection connection = null;
         //URL к базе состоит из протокола:подпротокола://[хоста]:[порта_СУБД]/[БД] и других_сведений
@@ -21,7 +21,7 @@ public class JDBCtest {
             System.out.println("Соединение установлено");
         } catch (Exception ex) {
             //выводим наиболее значимые сообщения
-            Logger.getLogger(JDBCtest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;
     }
