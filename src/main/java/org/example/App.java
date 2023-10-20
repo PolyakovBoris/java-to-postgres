@@ -9,7 +9,7 @@ public class App {
 
         // запрос данных по пользователю с логином b
         User user = queryPostgres.getSelect("b");
-
+        System.out.println(user);
         // новый пользователь
         user.login = user.login + new Random().nextInt(1000 - 1);
 
